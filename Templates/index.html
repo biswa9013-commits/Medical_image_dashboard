@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Medical Image Processing Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- Sidebar -->
+
+        <aside class="sidebar">
+
+            <h2>Med<span>Vision</span></h2>
+
+            <p class="sidebar-text">IMAGE PROCESSING</p>
+
+            <nav>
+
+                <a href="#" class="active">Dashboard</a>
+                <a href="#upload-section">Upload Image</a>
+                <a href="#processing-section">Processing Tools</a>
+                <a href="#result-section">Results</a>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <p>Python + OpenCV</p>
+                <small>Educational Image Processing</small>
+
+            </div>
+
+        </aside>
+
+
+        <!-- Main Content -->
+
+        <main class="main-content">
+
+            <header class="topbar">
+
+                <div>
+                    <p class="eyebrow">MEDICAL IMAGING WORKSPACE</p>
+                    <h1>Medical Image Processing</h1>
+                    <p>Upload, enhance, and inspect your scans in one place.</p>
+                </div>
+
+                <span class="status"><span class="status-dot"></span> System Ready</span>
+
+            </header>
+
+
+            <!-- Statistics -->
+
+            <section class="stats">
+
+                <div class="stat-card">
+                    <div class="stat-heading"><span class="stat-icon">◉</span><p>IMAGE STATUS</p></div>
+                    <h2 id="imageStatus">Not uploaded</h2>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-heading"><span class="stat-icon">↔</span><p>IMAGE WIDTH</p></div>
+                    <h2 id="imageWidth">0 px</h2>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-heading"><span class="stat-icon">↕</span><p>IMAGE HEIGHT</p></div>
+                    <h2 id="imageHeight">0 px</h2>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-heading"><span class="stat-icon">⌗</span><p>DETECTED REGIONS</p></div>
+                    <h2 id="regionCount">0</h2>
+                </div>
+
+            </section>
+
+
+            <!-- Upload Section -->
+
+            <section class="panel" id="upload-section">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">START HERE</p>
+                        <h2>Upload a medical image</h2>
+                    </div>
+                    <span class="step-badge">01</span>
+                </div>
+
+                <p class="section-description">Select an MRI, CT scan, or X-ray image to begin your analysis.</p>
+
+                <div class="upload-area" id="uploadArea">
+
+                    <input
+                        type="file"
+                        id="imageInput"
+                        accept=".png,.jpg,.jpeg"
+                        hidden
+                    >
+
+                    <div class="upload-icon">↑</div>
+
+                    <h3>Drop your scan here</h3>
+
+                    <p>or browse files from your device</p>
+
+                    <button id="uploadButton">
+                        Choose an image
+                    </button>
+
+                    <p id="uploadMessage"></p>
+                    <span class="upload-note">PNG, JPG or JPEG <span>·</span> up to 10 MB</span>
+
+                </div>
+
+            </section>
+
+
+            <!-- Image Preview -->
+
+            <section class="image-grid">
+
+                <div class="panel">
+
+                    <div class="image-title"><h2>Original image</h2><span class="image-tag">SOURCE</span></div>
+
+                    <div class="image-box">
+
+                        <img
+                            id="originalImage"
+                            src=""
+                            alt="Original medical image"
+                            hidden
+                        >
+
+                        <p id="originalPlaceholder">
+                            No image uploaded
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel" id="result-section">
+
+                    <div class="image-title"><h2>Processed image</h2><span class="image-tag result-tag">RESULT</span></div>
+
+                    <div class="image-box">
+
+                        <img
+                            id="processedImage"
+                            src=""
+                            alt="Processed medical image"
+                            hidden
+                        >
+
+                        <p id="resultPlaceholder">
+                            Processing result will appear here
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Processing Tools -->
+
+            <section class="panel" id="processing-section">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">IMAGE WORKFLOW</p>
+                        <h2>Processing tools</h2>
+                    </div>
+                    <span class="step-badge">02</span>
+                </div>
+                <p class="section-description">Choose an operation to generate a processed preview.</p>
+
+                <div class="tools-grid">
+
+                    <button class="tool-button" data-operation="grayscale">
+                        <span class="tool-icon">◐</span><span><strong>Grayscale</strong><small>Convert to monochrome</small></span>
+                    </button>
+
+                    <button class="tool-button" data-operation="enhance">
+                        <span class="tool-icon">✧</span><span><strong>Image enhancement</strong><small>Improve image contrast</small></span>
+                    </button>
+
+                    <button class="tool-button" data-operation="threshold">
+                        <span class="tool-icon">◩</span><span><strong>Threshold segmentation</strong><small>Separate light and dark areas</small></span>
+                    </button>
+
+                    <button class="tool-button" data-operation="edges">
+                        <span class="tool-icon">⌁</span><span><strong>Edge detection</strong><small>Highlight image boundaries</small></span>
+                    </button>
+
+                    <button class="tool-button" data-operation="denoise">
+                        <span class="tool-icon">◎</span><span><strong>Noise removal</strong><small>Smooth image artifacts</small></span>
+                    </button>
+
+                    <button class="tool-button" data-operation="measure">
+                        <span class="tool-icon">⌗</span><span><strong>Region measurement</strong><small>Outline larger regions</small></span>
+                    </button>
+
+                </div>
+
+                <p id="processMessage"></p>
+
+            </section>
+
+
+            <!-- Results -->
+
+            <section class="panel">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">RESULT DETAILS</p>
+                        <h2>Analysis information</h2>
+                    </div>
+                    <span class="step-badge">03</span>
+                </div>
+
+                <div class="analysis-info">
+
+                    <p>
+                        <strong>Operation:</strong>
+                        <span id="operationName">None</span>
+                    </p>
+
+                    <p>
+                        <strong>Detected Region Area:</strong>
+                        <span id="regionArea">0 pixels²</span>
+                    </p>
+
+                    <p>
+                        <strong>Processing Status:</strong>
+                        <span id="processingStatus">Waiting</span>
+                    </p>
+
+                </div>
+
+                <a
+                    href="#"
+                    id="downloadButton"
+                    class="download-button"
+                    hidden
+                    download
+                >
+                    Download Processed Image
+                </a>
+
+            </section>
+
+
+            <footer>
+                Medical Image Processing Dashboard | Python + OpenCV
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+
+</body>
+
+</html>
